@@ -23,7 +23,7 @@
 
 > **See "Egress Security" and properly setting the --outbound-type flag for private clusters 
 
-= If a publicly exposed K8S API server, use authorized IP ranges to lock down what internal and external IP's can access the api. 
+- If a publicly exposed K8S API server, use authorized IP ranges to lock down what internal and external IP's can access the api. 
 
 > VERY IMPORTANT! <br><br>https://docs.microsoft.com/en-us/azure/aks/api-server-authorized-ip-ranges 
 
