@@ -29,31 +29,18 @@
 
 ### 2.2 - Integrate the cluster with AAD for user auth  
 
-Links AAD user auth with Kubernetes built-in RBAC 
+- Links AAD user auth with Kubernetes built-in RBAC 
+- This is critical. Subsequent security features like connecting to ACR, running pods with a specific Managed Identity, and properly externalizing secrets. 
+  - https://docs.microsoft.com/en-us/azure/aks/managed-aad 
+- Use a User Defined Mamaged Identity rather than System Assigned when creating the cluster so identity can be reused on cluster recreate 
+  --assign-identity $IDENTITY 
 
-This is critical. Subsequent security features like connecting to ACR, running pods with a specific Managed Identity, and properly externalizing secrets. 
+### 2.3 Node Security 
 
-https://docs.microsoft.com/en-us/azure/aks/managed-aad 
-
- 
-
-Use a User Defined MI rather than System Assigned when creating the cluster so identity can be reused on cluster recreate 
-
---assign-identity $IDENTITY 
-
- 
-
-Node Security 
-
-OS patches are applied nightly by AKS. Rebooting the VM doesn't happen automatically 
-
- 
-
-Linux kernel updates require a reboot -- Kured daemonset is a solution for safe rebooting (cordoned / drained) 
-
- 
-
-Suggested.  Rather than leveraging Kured, recommended approach is to use VMSS Node Image Upgrade, now supported by AKS. This must be scripted by the customer as it's not automatically enforced as of yet (this on the roadmap).  This is considered an advantageous approach when compared to Kured, as Node Image Upgrade will bring a new OS image and will apply the image to all nodes in a cordoned/drained fashion. 
+- OS patches are applied nightly by AKS. Rebooting the VM doesn't happen automatically 
+- Linux kernel updates require a reboot 
+  > Kured daemonset is a solution for safe rebooting (cordoned / drained) 
+  > Suggested.  Rather than leveraging Kured, recommended approach is to use VMSS Node Image Upgrade, now supported by AKS. This must be scripted by the customer as it's not automatically enforced as of yet (this on the roadmap).  This is considered an advantageous approach when compared to Kured, as Node Image Upgrade will bring a new OS image and will apply the image to all nodes in a cordoned/drained fashion. 
 
  Upgrade Azure Kubernetes Service (AKS) node images - Azure Kubernetes Service | Microsoft Docs 
 
