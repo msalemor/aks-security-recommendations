@@ -267,10 +267,7 @@ https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
 - Set of governance and compliance rules to enforce organizational standards and to assess compliance at-scale. 
   - https://docs.microsoft.com/en-us/azure/governance/policy/concepts/policy-for-kubernetes 
   - https://docs.microsoft.com/en-us/azure/aks/policy-reference 
-
-
 - Azure Policy extends Gatekeeper v3, an admission controller webhook for Open Policy Agent (OPA), to apply at-scale enforcements and safeguards on your clusters in a centralized, consistent manner. Azure Policy makes it possible to manage and report on the compliance state of your Kubernetes clusters from one place. 
-
   - Example of a policy. Enforce that authorized IP ranges are defined on a publicly exposed AKS cluster. 
   - Examples of how an organization wants the platform to respond to a non-complaint resource include: 
     - Deny the resource change 
@@ -278,7 +275,7 @@ https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
     - Alter the resource before the change 
     - Alter the resource after the change 
     - Deploy related compliant resources 
-- Azure Advisor -- bubbles up recommendations. Both from Azure Policy and overall platform. 
+- Azure Advisor bubbles up recommendations both from Azure Policy and overall platform. 
 
 ## 6.0 Image Management concerns 
 
