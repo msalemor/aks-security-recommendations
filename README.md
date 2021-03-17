@@ -209,11 +209,8 @@ https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az_aks_crea
 
 ## 4.0 Developer/Manifest/Configuration concerns 
 
- 
 
-Things to consider from a developer and configuration perspective 
-
- 
+- Things to consider from a developer and configuration perspective 
 
 Limit root access 
 
@@ -267,43 +264,21 @@ https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
 
 ## 5.0 Governance concerns / Azure Policy 
 
- 
+- Set of governance and compliance rules to enforce organizational standards and to assess compliance at-scale. 
+  - https://docs.microsoft.com/en-us/azure/governance/policy/concepts/policy-for-kubernetes 
+  - https://docs.microsoft.com/en-us/azure/aks/policy-reference 
 
-Set of governance and compliance rules to enforce organizational standards and to assess compliance at-scale. 
 
- 
+- Azure Policy extends Gatekeeper v3, an admission controller webhook for Open Policy Agent (OPA), to apply at-scale enforcements and safeguards on your clusters in a centralized, consistent manner. Azure Policy makes it possible to manage and report on the compliance state of your Kubernetes clusters from one place. 
 
-https://docs.microsoft.com/en-us/azure/governance/policy/concepts/policy-for-kubernetes 
-
-https://docs.microsoft.com/en-us/azure/aks/policy-reference 
-
- 
-
-Azure Policy extends Gatekeeper v3, an admission controller webhook for Open Policy Agent (OPA), to apply at-scale enforcements and safeguards on your clusters in a centralized, consistent manner. Azure Policy makes it possible to manage and report on the compliance state of your Kubernetes clusters from one place. 
-
- 
-
-Example of a policy. Enforce that authorized IP ranges are defined on a publicly exposed AKS cluster. 
-
- 
-
-Examples of how an organization wants the platform to respond to a non-complaint resource include: 
-
-Deny the resource change 
-
-Log the change to the resource 
-
-Alter the resource before the change 
-
-Alter the resource after the change 
-
-Deploy related compliant resources 
-
- 
-
-Azure Advisor -- bubbles up recommendations. Both from Azure Policy and overall platform. 
-
- 
+  - Example of a policy. Enforce that authorized IP ranges are defined on a publicly exposed AKS cluster. 
+  - Examples of how an organization wants the platform to respond to a non-complaint resource include: 
+    - Deny the resource change 
+    - Log the change to the resource 
+    - Alter the resource before the change 
+    - Alter the resource after the change 
+    - Deploy related compliant resources 
+- Azure Advisor -- bubbles up recommendations. Both from Azure Policy and overall platform. 
 
 ## 6.0 Image Management concerns 
 
