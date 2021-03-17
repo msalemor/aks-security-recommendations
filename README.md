@@ -209,58 +209,35 @@ https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az_aks_crea
 
 ## 4.0 Developer/Manifest/Configuration concerns 
 
-
 - Things to consider from a developer and configuration perspective 
 
-Limit root access 
+### 4.1 Limit root access 
 
-Do not run containers as root 
+  - Do not run containers as root 
+  - Define a security context for privilege and access control settings so that the pod/container doesn't get root access. 
+    - https://docs.microsoft.com/en-us/azure/aks/developer-best-practices-pod-security 
+    - https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ 
+  - Best solution -- use this built-in Azure Policy to enforce this cluster wide 
+    - https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F95edb821-ddaf-4404-9732-666045e056b4 
 
-Define a security context for privilege and access control settings so that the pod/container doesn't get root access. 
+### 4.2 Externalize Secrets 
 
-https://docs.microsoft.com/en-us/azure/aks/developer-best-practices-pod-security 
+- Externalize application secrets to KeyVault and connect to K8S secrets/pods/envVars. Not GA as of yet.  
+  - https://github.com/Azure/secrets-store-csi-driver-provider-azure 
+  - https://docs.microsoft.com/en-us/azure/key-vault/general/key-vault-integrate-kubernetes 
 
-https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ 
+### 4.3 - Leverage Pod Identity 
 
- 
+- Instead of authorizing access to resources at the cluster level, do so for individual pods with Managed Identity. 
+  - Pod Identity should be leveraged when externalizing secrets to KeyVault. 
+    - https://docs.microsoft.com/en-us/azure/aks/operator-best-practices-identity#use-pod-identities 
+    
+> NOTE: Pod Identity not supported with Windows node pools as of yet. Can instead access KV secrets from the cluster MI through CSI driver. 
 
-Best solution -- use this built-in Azure Policy to enforce this cluster wide 
+### 4.4 - Use Namespaces to logically isolate deployments 
 
-https://portal.azure.com/#blade/Microsoft_Azure_Policy/PolicyDetailBlade/definitionId/%2Fproviders%2FMicrosoft.Authorization%2FpolicyDefinitions%2F95edb821-ddaf-4404-9732-666045e056b4 
-
- 
-
-Externalize Secrets 
-
-Externalize application secrets to KeyVault and connect to K8S secrets/pods/envVars. Not GA as of yet.  
-
-https://github.com/Azure/secrets-store-csi-driver-provider-azure 
-
-https://docs.microsoft.com/en-us/azure/key-vault/general/key-vault-integrate-kubernetes 
-
- 
-
-Leverage Pod Identity 
-
-Instead of authorizing access to resources at the cluster level, do so for individual pods with Managed Identity. 
-
-Pod Identity should be leveraged when externalizing secrets to KeyVault. 
-
-https://docs.microsoft.com/en-us/azure/aks/operator-best-practices-identity#use-pod-identities 
-
- 
-
-NOTE: Pod Identity not supported with Windows node pools as of yet. Can instead access KV secrets from the cluster MI through CSI driver. 
-
- 
-
-Use Namespaces to logically isolate deployments 
-
-Leverage namespaces along with Network Policies for application isolation. Namespace on their own provide no isolation and are not a security layer.  
-
-https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/ 
-
- 
+- Leverage namespaces along with Network Policies for application isolation. Namespace on their own provide no isolation and are not a security layer.  
+  - https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/ 
 
 ## 5.0 Governance concerns / Azure Policy 
 
