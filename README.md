@@ -45,27 +45,19 @@
 
  
 
-Security hardening the AKS agent node host OS. AKS provides a security optimized host OS by default. There is no option to select an alternate operating system. No action need to be taken, but more info here.  
-
-Security hardening in AKS virtual machine hosts - Azure Kubernetes Service | Microsoft Docs 
-
- 
+- Security hardening the AKS agent node host OS. AKS provides a security optimized host OS by default. There is no option to select an alternate operating system. No action need to be taken, but more info here.  
+  - Security hardening in AKS virtual machine hosts - Azure Kubernetes Service | Microsoft Docs 
 
 ### 2.4 - Upgrade Kubernetes version 
 
-Regularly update K8S version (need to stay within n-2 of officially supported kuberntes versions) 
-
-https://docs.microsoft.com/en-us/azure/aks/operator-best-practices-cluster-security#regularly-update-to-the-latest-version-of-kubernetes 
-
- 
+- Regularly update K8S version (need to stay within n-2 of officially supported kuberntes versions) 
+  - https://docs.microsoft.com/en-us/azure/aks/operator-best-practices-cluster-security#regularly-update-to-the-latest-version-of-kubernetes 
 
 ### 2.5 - Compute isolation (optional) 
 
 - Leverage isolated VM types if there's a concern about neighbors running on the same physical hardware. 
   - https://docs.microsoft.com/en-us/azure/virtual-machines/isolation 
 > Note: for product clusters, separating system and user node pools is a best practice for resiliency and scale reasons, but not necessarily security. 
-
- 
 
 ### 2.6 - Integrate the cluster with Azure Container Registry 
 
@@ -89,21 +81,14 @@ https://docs.microsoft.com/en-us/azure/aks/operator-best-practices-cluster-secur
 
 ### 2.8 - Enable Azure Defender for Kubernetes 
 
-Provides real-time threat protection of the cluster and generates alerts for threats and malicious activity. 
-
-Enabled through Azure Security Center for a fee. This is not enabled by default. 
-
-Azure Defender for Kubernetes - the benefits and features | Microsoft Docs 
-
-Azure Defender for Kubernetes provides protections at the cluster level. If you also deploy the Log Analytics agent of Azure Defender for Servers, you'll get the threat protection for your nodes that's provided with that plan.  
-
-We recommend deploying both for the most protection. 
-
-https://docs.microsoft.com/en-us/azure/security-center/defender-for-kubernetes-introduction#can-i-still-get-aks-protections-without-the-log-analytics-agent 
-
-Azure Defender for Servers requires the Log Analytics Agent to be deployed. It is ok to run this side-by-side with the Azure Monitor agent (enabling container insights).  
-
-https://docs.microsoft.com/en-us/azure/security-center/defender-for-kubernetes-introduction#if-my-cluster-is-already-running-an-azure-monitor-for-containers-agent-do-i-need-the-log-analytics-agent-too 
+- Provides real-time threat protection of the cluster and generates alerts for threats and malicious activity. 
+- Enabled through Azure Security Center for a fee. This is not enabled by default. 
+  - https://docs.microsoft.com/en-us/azure/security-center/defender-for-kubernetes-introduction#:~:text=Host%20level%20(provided%20by%20Azure%20Defender%20for%20servers),detection%20and%20connection%20with%20known%20suspicious%20IP%20addresses 
+- Azure Defender for Kubernetes provides protections at the cluster level. If you also deploy the Log Analytics agent of Azure Defender for Servers, you'll get the threat protection for your nodes that's provided with that plan.  
+- We recommend deploying both for the most protection. 
+  - https://docs.microsoft.com/en-us/azure/security-center/defender-for-kubernetes-introduction#can-i-still-get-aks-protections-without-the-log-analytics-agent 
+- Azure Defender for Servers requires the Log Analytics Agent to be deployed. It is ok to run this side-by-side with the Azure Monitor agent (enabling container insights).  
+  - https://docs.microsoft.com/en-us/azure/security-center/defender-for-kubernetes-introduction#if-my-cluster-is-already-running-an-azure-monitor-for-containers-agent-do-i-need-the-log-analytics-agent-too 
 
 ### 2.9 - Separate apps across node pools (optional) 
 
