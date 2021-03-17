@@ -82,13 +82,10 @@ https://docs.microsoft.com/en-us/azure/aks/operator-best-practices-cluster-secur
 - When creating the cluster: 
 ```basb
 --enable-addons monitoring 
-````
-
-Integrate the cluster with Azure Monitoring. This could involve a discussion of Prometheus metrics scaping and the pros/cons of AKS Container Insights vs Prometheus/Grafana.  
-Overview of Azure Monitor for containers - Azure Monitor | Microsoft Docs 
-Configure Azure Monitor for containers Prometheus Integration - Azure Monitor | Microsoft Docs 
-
- 
+```
+- Integrate the cluster with Azure Monitoring. This could involve a discussion of Prometheus metrics scaping and the pros/cons of AKS Container Insights vs Prometheus/Grafana.  
+  - https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-overview 
+  - https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-prometheus-integration 
 
 ### 2.8 - Enable Azure Defender for Kubernetes 
 
@@ -98,23 +95,15 @@ Enabled through Azure Security Center for a fee. This is not enabled by default.
 
 Azure Defender for Kubernetes - the benefits and features | Microsoft Docs 
 
- 
-
 Azure Defender for Kubernetes provides protections at the cluster level. If you also deploy the Log Analytics agent of Azure Defender for Servers, you'll get the threat protection for your nodes that's provided with that plan.  
-
- 
 
 We recommend deploying both for the most protection. 
 
 https://docs.microsoft.com/en-us/azure/security-center/defender-for-kubernetes-introduction#can-i-still-get-aks-protections-without-the-log-analytics-agent 
 
- 
-
 Azure Defender for Servers requires the Log Analytics Agent to be deployed. It is ok to run this side-by-side with the Azure Monitor agent (enabling container insights).  
 
 https://docs.microsoft.com/en-us/azure/security-center/defender-for-kubernetes-introduction#if-my-cluster-is-already-running-an-azure-monitor-for-containers-agent-do-i-need-the-log-analytics-agent-too 
-
- 
 
 ### 2.9 - Separate apps across node pools (optional) 
 
