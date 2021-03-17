@@ -139,73 +139,38 @@ Use multiple node pools in Azure Kubernetes Service (AKS) - Azure Kubernetes Ser
 
 ## 3.0 Network concerns 
 
- 
+- Things to consider from a networking perspective as it relates to the cluster. Proper LZ design is outside of the scope of this document. 
+  - https://docs.microsoft.com/en-us/azure/aks/concepts-network
 
-Things to consider from a networking perspective as it relates to the cluster. Proper LZ design is outside of the scope of this document. 
+### 3.1 - Network Security 
 
-Concepts - Networking in Azure Kubernetes Services (AKS) - Azure Kubernetes Service | Microsoft Docs 
+- Do not add NSG's to the subnets hosting the cluster (not supported for AKS).   
+- Use Kubernetes network policy to control flow (east-west) within the cluster between applications/pods.  
 
- 
+### 3.2 - Network Policy 
 
-Network Security 
+- Allow/Deny networking rules to pods inside of the cluster 
+  - https://docs.microsoft.com/en-us/azure/aks/use-network-policies 
+> Note: This is critical for applying who and what can access application pods. Network Policy enables east/west network traffic between pods inside the cluster. Example would be putting appA into namespace A and appB in namespace B, and leveraging Network Policy to not let pods in these application call each other. Enables isolation. 
+- Azure and Calico are two different flavors of network policy. 
+  - https://docs.microsoft.com/en-us/azure/aks/use-network-policies#differences-between-azure-and-calico-policies-and-their-capabilities 
 
-Do not add NSG's to the subnets hosting the cluster (not supported for AKS).   
+### 3.3 - Avoid using public IPs to expose load balanced pods 
 
-Use Kubernetes network policy to control flow (east-west) within the cluster between applications/pods.  
+- Use an ingress controller to reverse proxy and aggregate Kubernetes services. Perhaps route external traffic through a WAF (AppGw, Front Door, etc) before hitting the ingress controller. Let the ingress controller route to services and then to pods. 
+  - https://docs.microsoft.com/en-us/azure/aks/ingress-internal-ip 
+> General rule: avoid using public IPs anywhere inside of the AKS cluster if not explicitly required. 
 
- 
+### 3.4 - Egress Security 
 
-Network Policy 
+- Route and limit egress traffic leaving the cluster through a firewall. 
+  - https://docs.microsoft.com/en-us/azure/aks/limit-egress-traffic 
+- Avoid a public IP for egress with a private cluster + Standard LB 
+> IMPORTANT for private clusters 
 
-Allow/Deny networking rules to pods inside of the cluster 
-
- 
-
-This is critical for applying who and what can access application pods. Network Policy enables east/west network traffic between pods inside the cluster. Example would be putting appA into namespace A and appB in namespace B, and leveraging Network Policy to not let pods in these application call each other. Enables isolation. 
-
-https://docs.microsoft.com/en-us/azure/aks/use-network-policies 
-
- 
-
-Azure and Calico are two different flavors of network policy. 
-
-https://docs.microsoft.com/en-us/azure/aks/use-network-policies#differences-between-azure-and-calico-policies-and-their-capabilities 
-
- 
-
-Avoid using public IPs to expose load balanced pods 
-
-Use an ingress controller to reverse proxy and aggregate Kubernetes services. Perhaps route external traffic through a WAF (AppGw, Front Door, etc) before hitting the ingress controller. Let the ingress controller route to services and then to pods. 
-
-https://docs.microsoft.com/en-us/azure/aks/ingress-internal-ip 
-
- 
-
-General rule: avoid using public IPs anywhere inside of the AKS cluster if not explicitly required. 
-
- 
-
-Egress Security 
-
-Route and limit egress traffic leaving the cluster through a firewall. 
-
-https://docs.microsoft.com/en-us/azure/aks/limit-egress-traffic 
-
- 
-
-Avoid a public IP for egress with a private cluster + Standard LB 
-
-IMPORTANT for private clusters 
-
- 
-
-Private AKS clusters means only that the API server gets a private IP. By default, AKS still uses a public IP for egress traffic from nodes/pods to outside world, even in private AKS instances. This is because the Standard LB requires the ability to egress, and will create a public IP to do so unless you manage egress traffic flow. You can set the outbound type to use a UDR to Azure Firewall or another NVA to disable the creation of the public IP when leveraging the Standard Load Balancer. 
-
-https://docs.microsoft.com/en-us/azure/aks/egress-outboundtype. 
-
-https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az_aks_create-examples 
-
- 
+- Private AKS clusters means only that the API server gets a private IP. By default, AKS still uses a public IP for egress traffic from nodes/pods to outside world, even in private AKS instances. This is because the Standard LB requires the ability to egress, and will create a public IP to do so unless you manage egress traffic flow. You can set the outbound type to use a UDR to Azure Firewall or another NVA to disable the creation of the public IP when leveraging the Standard Load Balancer. 
+  - https://docs.microsoft.com/en-us/azure/aks/egress-outboundtype
+  - https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az_aks_create-examples 
 
 ## 4.0 Developer/Manifest/Configuration concerns 
 
