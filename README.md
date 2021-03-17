@@ -1,13 +1,13 @@
 # AKS Security Recommendations
 
-## Goals:  
+## 1.0 Goals:  
 
 - High-level breakdown of all aspects of security that should be considered when running an AKS cluster. 
 - Leave behind for customers rather than an emailed dump of links. 
 > ***Not covered here:*** specific application security for apps deployed to the cluster 
  
 
-## Cluster level concerns 
+## 2.0 Cluster level concerns 
 
 - These concerns should be considered before setting up the cluster (i.e. running: az aks create) 
 - Couple of general articles 
@@ -15,24 +15,19 @@
   - https://docs.microsoft.com/en-us/azure/aks/operator-best-practices-cluster-security 
  
 
-### Master  
+### 2.1 - Master  
 
 - The cluster's master node(s) are managed by AKS. Locking down access to them is critical. 
 = Use a private cluster stronger posture if possible. Does the customer need the API server exposed externally? 
 
 https://docs.microsoft.com/en-us/azure/aks/private-clusters 
 
- 
+> **See "Egress Security" and properly setting the --outbound-type flag for private clusters 
 
-**See "Egress Security" and properly setting the --outbound-type flag for private clusters 
-
- 
 
 If a publicly exposed K8S API server, use authorized IP ranges to lock down what internal and external IP's can access the api. 
 
-VERY IMPORTANT! 
-
-https://docs.microsoft.com/en-us/azure/aks/api-server-authorized-ip-ranges 
+> VERY IMPORTANT! <br>https://docs.microsoft.com/en-us/azure/aks/api-server-authorized-ip-ranges 
 
  
 
