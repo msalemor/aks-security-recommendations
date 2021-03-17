@@ -137,7 +137,7 @@ Use multiple node pools in Azure Kubernetes Service (AKS) - Azure Kubernetes Ser
 
  
 
-Network concerns 
+## 3.0 Network concerns 
 
  
 
@@ -207,7 +207,7 @@ https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az_aks_crea
 
  
 
-Developer/Manifest/Configuration concerns 
+## 4.0 Developer/Manifest/Configuration concerns 
 
  
 
@@ -265,7 +265,7 @@ https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
 
  
 
-Governance concerns / Azure Policy 
+## 5.0 Governance concerns / Azure Policy 
 
  
 
@@ -305,40 +305,27 @@ Azure Advisor -- bubbles up recommendations. Both from Azure Policy and overall 
 
  
 
-Image Management concerns 
+## 6.0 Image Management concerns 
 
- 
+- Protect and secure aspects of container images and the AKS cluster 
 
-Protect and secure aspects of container images and the AKS cluster 
+### 6.1 Scan images 
 
- 
+- Scan container images to ensure they are free of vulnerabilities 
+  - https://docs.microsoft.com/en-us/azure/security-center/defender-for-container-registries-introduction 
 
-Scan images 
+### 6.2 Lock down allowed container images 
 
-Scan container images to ensure they are free of vulnerabilities 
+- Ensure the AKS cluster restricts container images to trusted registries. 
+  - https://docs.microsoft.com/en-us/azure/aks/policy-reference#microsoftcontainerservice 
 
-https://docs.microsoft.com/en-us/azure/security-center/defender-for-container-registries-introduction 
+### 6.3 Lock down ACR with RBAC 
 
- 
+- Only possible with AAD enabled clusters. Easiest to enable this when creating the cluster.  
+  - https://docs.microsoft.com/en-us/azure/container-registry/container-registry-roles 
 
-Lock down allowed container images 
 
-Ensure the AKS cluster restricts container images to trusted registries. 
+### 6.4 Network lockdown of ACR with Private Link 
 
-https://docs.microsoft.com/en-us/azure/aks/policy-reference#microsoftcontainerservice 
-
- 
-
-Lock down ACR with RBAC 
-
-Only possible with AAD enabled clusters. Easiest to enable this when creating the cluster.  
-
-https://docs.microsoft.com/en-us/azure/container-registry/container-registry-roles 
-
- 
-
-Network lockdown of ACR with Private Link 
-
-Expose ACR through private link removing external access to the registry. Note, vnet peering will be required if AKS deployed in private cluster.  
-
-https://docs.microsoft.com/en-us/azure/container-registry/container-registry-private-link 
+- Expose ACR through private link removing external access to the registry. Note, vnet peering will be required if AKS deployed in private cluster.  
+  - https://docs.microsoft.com/en-us/azure/container-registry/container-registry-private-link 
