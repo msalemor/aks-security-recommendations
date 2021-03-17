@@ -18,12 +18,10 @@
 ### 2.1 - Master  
 
 - The cluster's master node(s) are managed by AKS. Locking down access to them is critical. 
-= Use a private cluster stronger posture if possible. Does the customer need the API server exposed externally? 
-
-https://docs.microsoft.com/en-us/azure/aks/private-clusters 
+- Use a private cluster stronger posture if possible. Does the customer need the API server exposed externally? 
+  - https://docs.microsoft.com/en-us/azure/aks/private-clusters 
 
 > **See "Egress Security" and properly setting the --outbound-type flag for private clusters 
-
 
 = If a publicly exposed K8S API server, use authorized IP ranges to lock down what internal and external IP's can access the api. 
 
