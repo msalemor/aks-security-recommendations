@@ -51,7 +51,7 @@ Security hardening in AKS virtual machine hosts - Azure Kubernetes Service | Mic
 
  
 
-Upgrade Kubernetes version 
+### 2.4 - Upgrade Kubernetes version 
 
 Regularly update K8S version (need to stay within n-2 of officially supported kuberntes versions) 
 
@@ -59,51 +59,38 @@ https://docs.microsoft.com/en-us/azure/aks/operator-best-practices-cluster-secur
 
  
 
-Compute isolation (optional) 
+### 2.5 - Compute isolation (optional) 
 
-Leverage isolated VM types if there's a concern about neighbors running on the same physical hardware. 
-
-https://docs.microsoft.com/en-us/azure/virtual-machines/isolation 
-
- 
-
-Note: for product clusters, separating system and user node pools is a best practice for resiliency and scale reasons, but not necessarily security. 
+- Leverage isolated VM types if there's a concern about neighbors running on the same physical hardware. 
+  - https://docs.microsoft.com/en-us/azure/virtual-machines/isolation 
+> Note: for product clusters, separating system and user node pools is a best practice for resiliency and scale reasons, but not necessarily security. 
 
  
 
-Integrate the cluster with Azure Container Registry 
+### 2.6 - Integrate the cluster with Azure Container Registry 
 
-Don't use docker login/password. Connect to ACR through the cluster's AAD integration. See Image Management for more security tweaks around the ACR. 
+- Don't use docker login/password. Connect to ACR through the cluster's AAD integration. See Image Management for more security tweaks around the ACR. 
+  - https://docs.microsoft.com/en-us/azure/aks/cluster-container-registry-integration 
+- Deploy ACR with a private endpoint and connect to it from AKS privately. Peering may be needed if a private cluster. See below.  
 
-https://docs.microsoft.com/en-us/azure/aks/cluster-container-registry-integration 
+- Enable SSH (optional) 
+  - https://docs.microsoft.com/en-us/azure/aks/aks-ssh 
+> Do this only if SSH'ing to agent nodes is deemed useful for troubleshooting. Safely store these keys. 
+  
+### 2.7 Enable Monitoring 
 
- 
-
-Deploy ACR with a private endpoint and connect to it from AKS privately. Peering may be needed if a private cluster. See below.  
-
- 
-
-Enable SSH (optional) 
-
-Do this only if SSH'ing to agent nodes is deemed useful for troubleshooting. Safely store these keys. 
-
-https://docs.microsoft.com/en-us/azure/aks/aks-ssh 
-
- 
-
-Enable Monitoring 
-
-When creating the cluster: --enable-addons monitoring 
+- When creating the cluster: 
+```basb
+--enable-addons monitoring 
+````
 
 Integrate the cluster with Azure Monitoring. This could involve a discussion of Prometheus metrics scaping and the pros/cons of AKS Container Insights vs Prometheus/Grafana.  
-
 Overview of Azure Monitor for containers - Azure Monitor | Microsoft Docs 
-
 Configure Azure Monitor for containers Prometheus Integration - Azure Monitor | Microsoft Docs 
 
  
 
-Enable Azure Defender for Kubernetes 
+### 2.8 - Enable Azure Defender for Kubernetes 
 
 Provides real-time threat protection of the cluster and generates alerts for threats and malicious activity. 
 
@@ -129,13 +116,10 @@ https://docs.microsoft.com/en-us/azure/security-center/defender-for-kubernetes-i
 
  
 
-Separate apps across node pools (optional) 
+### 2.9 - Separate apps across node pools (optional) 
 
-Proper node pool design is critical for cluster reliability. However, it can also affect security if want to ensure certain application stay physically isolated from each other and will not run the same VM nodes. In this case node pool can provide this level of physical isolation. 
-
-Use multiple node pools in Azure Kubernetes Service (AKS) - Azure Kubernetes Service | Microsoft Docs 
-
- 
+- Proper node pool design is critical for cluster reliability. However, it can also affect security if want to ensure certain application stay physically isolated from each other and will not run the same VM nodes. In this case node pool can provide this level of physical isolation. 
+  - https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools 
 
 ## 3.0 Network concerns 
 
