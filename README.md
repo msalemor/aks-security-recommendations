@@ -197,3 +197,14 @@
 
 - Expose ACR through private link removing external access to the registry. Note, vnet peering will be required if AKS deployed in private cluster.  
   - https://docs.microsoft.com/en-us/azure/container-registry/container-registry-private-link 
+
+## 7.0 DevOps
+
+### 7.1 Versioning
+
+- It is better practice to version your containers instead of just using Latest. 
+- Doing so will allow you to easily rollback to a previous version.
+
+### 7.2 GitOps
+
+- Consider using a GitOps management plane to deploy changes to your cluster.
