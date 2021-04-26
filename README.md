@@ -19,12 +19,12 @@
 
 - The cluster's master node(s) are managed by AKS. Locking down access to them is critical. 
 
-> **Note:** see "Egress Security" and properly setting the --outbound-type flag for private clusters 
-
 #### 2.2.1 - Private Cluster
 
 - Use a private cluster stronger posture if possible. Does the customer need the API server exposed externally? 
   - https://docs.microsoft.com/en-us/azure/aks/private-clusters 
+
+> **Note:** see "Egress Security" and properly setting the --outbound-type flag for private clusters 
 
 #### 2.2.2 - Public Cluster
 
