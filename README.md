@@ -69,7 +69,7 @@
 - Deploy ACR with a private endpoint and connect to it from AKS privately. Peering may be needed if a private cluster. See below.  
 - Enable SSH (optional) 
   - https://docs.microsoft.com/en-us/azure/aks/aks-ssh 
-> **Note:** Do this only if SSH'ing to agent nodes is deemed useful for troubleshooting. Safely store these keys. 
+  - > **Note:** Do this only if SSH'ing to agent nodes is deemed useful for troubleshooting. Safely store these keys. 
   
 ### 2.7 Enable Monitoring 
 
