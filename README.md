@@ -35,7 +35,7 @@
 
 - Link AAD user auth with Kubernetes built-in RBAC 
 
-> **Note:** This is critical: Subsequent security features like connecting to ACR, running pods with a specific Managed Identity, and properly externalizing secrets. <br><br>https://docs.microsoft.com/en-us/azure/aks/managed-aad 
+> **Critical:** Subsequent security features like connecting to ACR, running pods with a specific Managed Identity, and properly externalizing secrets. <br><br>https://docs.microsoft.com/en-us/azure/aks/managed-aad 
 
 > **Note:** Use a User Defined Mamaged Identity rather than System Assigned when creating the cluster so identity can be reused on cluster recreate 
   --assign-identity $IDENTITY 
