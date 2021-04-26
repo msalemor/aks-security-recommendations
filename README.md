@@ -19,7 +19,7 @@
 
 - The cluster's master node(s) are managed by AKS. Locking down access to them is critical. 
 
-> Note: **See "Egress Security" and properly setting the --outbound-type flag for private clusters 
+> **Note:** See "Egress Security" and properly setting the --outbound-type flag for private clusters 
 
 #### 2.2.1 - Private Cluster
 - Use a private cluster stronger posture if possible. Does the customer need the API server exposed externally? 
@@ -30,13 +30,16 @@
 #### 2.2.2 - Public Cluster
 
 - If a publicly exposed K8S API server, use authorized IP ranges to lock down what internal and external IP's can access the api. 
-> VERY IMPORTANT! <br><br>https://docs.microsoft.com/en-us/azure/aks/api-server-authorized-ip-ranges 
+
+> **VERY IMPORTANT!** https://docs.microsoft.com/en-us/azure/aks/api-server-authorized-ip-ranges 
 
 ### 2.2 - Integrate the cluster with AAD for user auth  
 
 - Link AAD user auth with Kubernetes built-in RBAC 
-> This is critical: Subsequent security features like connecting to ACR, running pods with a specific Managed Identity, and properly externalizing secrets. <br><br>https://docs.microsoft.com/en-us/azure/aks/managed-aad 
-- Use a User Defined Mamaged Identity rather than System Assigned when creating the cluster so identity can be reused on cluster recreate 
+
+> **Note:** This is critical: Subsequent security features like connecting to ACR, running pods with a specific Managed Identity, and properly externalizing secrets. <br><br>https://docs.microsoft.com/en-us/azure/aks/managed-aad 
+
+> **Note:** Use a User Defined Mamaged Identity rather than System Assigned when creating the cluster so identity can be reused on cluster recreate 
   --assign-identity $IDENTITY 
 
 ### 2.3 Node Security 
