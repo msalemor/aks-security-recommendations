@@ -1,11 +1,11 @@
 # AKS Security Recommendations
 
-## 1.0 Goals:  
+## 1.0 Goals  
 
 - High-level breakdown of all aspects of security that should be considered when running an AKS cluster. 
 - Leave behind for customers rather than an emailed dump of links. 
+
 > ***Not covered here:*** specific application security for apps deployed to the cluster 
- 
 
 ## 2.0 Cluster level concerns 
 
@@ -13,7 +13,6 @@
 - Couple of general articles 
   - https://docs.microsoft.com/en-us/azure/aks/concepts-security 
   - https://docs.microsoft.com/en-us/azure/aks/operator-best-practices-cluster-security 
- 
 
 ### 2.1 - Master  
 
