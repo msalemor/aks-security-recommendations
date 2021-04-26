@@ -45,8 +45,8 @@
 
 - OS patches are applied nightly by AKS. Rebooting the VM doesn't happen automatically 
 - Linux kernel updates require a reboot 
-  > Kured daemonset is a solution for safe rebooting (cordoned / drained) 
-  > Suggested.  Rather than leveraging Kured, recommended approach is to use VMSS Node Image Upgrade, now supported by AKS. This must be scripted by the customer as it's not automatically enforced as of yet (this on the roadmap).  This is considered an advantageous approach when compared to Kured, as Node Image Upgrade will bring a new OS image and will apply the image to all nodes in a cordoned/drained fashion. 
+  > **Note:** Kured daemonset is a solution for safe rebooting (cordoned / drained) 
+  > **Suggested.**  Rather than leveraging Kured, recommended approach is to use VMSS Node Image Upgrade, now supported by AKS. This must be scripted by the customer as it's not automatically enforced as of yet (this on the roadmap).  This is considered an advantageous approach when compared to Kured, as Node Image Upgrade will bring a new OS image and will apply the image to all nodes in a cordoned/drained fashion. 
   - https://docs.microsoft.com/en-us/azure/aks/node-image-upgrade 
 - Security hardening the AKS agent node host OS. AKS provides a security optimized host OS by default. There is no option to select an alternate operating system. No action need to be taken, but more info here.  
   - https://docs.microsoft.com/en-us/azure/aks/security-hardened-vm-host-image 
@@ -60,17 +60,16 @@
 
 - Leverage isolated VM types if there's a concern about neighbors running on the same physical hardware. 
   - https://docs.microsoft.com/en-us/azure/virtual-machines/isolation 
-> Note: for product clusters, separating system and user node pools is a best practice for resiliency and scale reasons, but not necessarily security. 
+> **Note:** For product clusters, separating system and user node pools is a best practice for resiliency and scale reasons, but not necessarily security. 
 
 ### 2.6 - Integrate the cluster with Azure Container Registry 
 
 - Don't use docker login/password. Connect to ACR through the cluster's AAD integration. See Image Management for more security tweaks around the ACR. 
   - https://docs.microsoft.com/en-us/azure/aks/cluster-container-registry-integration 
 - Deploy ACR with a private endpoint and connect to it from AKS privately. Peering may be needed if a private cluster. See below.  
-
 - Enable SSH (optional) 
   - https://docs.microsoft.com/en-us/azure/aks/aks-ssh 
-> Do this only if SSH'ing to agent nodes is deemed useful for troubleshooting. Safely store these keys. 
+> **Note:** Do this only if SSH'ing to agent nodes is deemed useful for troubleshooting. Safely store these keys. 
   
 ### 2.7 Enable Monitoring 
 
@@ -112,7 +111,7 @@
 
 - Allow/Deny networking rules to pods inside of the cluster 
   - https://docs.microsoft.com/en-us/azure/aks/use-network-policies 
-> Note: This is critical for applying who and what can access application pods. Network Policy enables east/west network traffic between pods inside the cluster. Example would be putting appA into namespace A and appB in namespace B, and leveraging Network Policy to not let pods in these application call each other. Enables isolation. 
+> **Note:** This is critical for applying who and what can access application pods. Network Policy enables east/west network traffic between pods inside the cluster. Example would be putting appA into namespace A and appB in namespace B, and leveraging Network Policy to not let pods in these application call each other. Enables isolation. 
 - Azure and Calico are two different flavors of network policy. 
   - https://docs.microsoft.com/en-us/azure/aks/use-network-policies#differences-between-azure-and-calico-policies-and-their-capabilities 
 
@@ -120,14 +119,14 @@
 
 - Use an ingress controller to reverse proxy and aggregate Kubernetes services. Perhaps route external traffic through a WAF (AppGw, Front Door, etc) before hitting the ingress controller. Let the ingress controller route to services and then to pods. 
   - https://docs.microsoft.com/en-us/azure/aks/ingress-internal-ip 
-> General rule: avoid using public IPs anywhere inside of the AKS cluster if not explicitly required. 
+> **General rule:** avoid using public IPs anywhere inside of the AKS cluster if not explicitly required. 
 
 ### 3.4 - Egress Security 
 
 - Route and limit egress traffic leaving the cluster through a firewall. 
   - https://docs.microsoft.com/en-us/azure/aks/limit-egress-traffic 
 - Avoid a public IP for egress with a private cluster + Standard LB 
-> IMPORTANT for private clusters 
+> **IMPORTANT** for private clusters 
 
 - Private AKS clusters means only that the API server gets a private IP. By default, AKS still uses a public IP for egress traffic from nodes/pods to outside world, even in private AKS instances. This is because the Standard LB requires the ability to egress, and will create a public IP to do so unless you manage egress traffic flow. You can set the outbound type to use a UDR to Azure Firewall or another NVA to disable the creation of the public IP when leveraging the Standard Load Balancer. 
   - https://docs.microsoft.com/en-us/azure/aks/egress-outboundtype
@@ -158,13 +157,14 @@
   - Pod Identity should be leveraged when externalizing secrets to KeyVault. 
     - https://docs.microsoft.com/en-us/azure/aks/operator-best-practices-identity#use-pod-identities 
     
-> NOTE: Pod Identity not supported with Windows node pools as of yet. Can instead access KV secrets from the cluster MI through CSI driver. 
+> **Note:** Pod Identity not supported with Windows node pools as of yet. Can instead access KV secrets from the cluster MI through CSI driver. 
 
 ### 4.4 - Use Namespaces to logically isolate deployments 
 
-- Leverage namespaces along with Network Policies for application isolation. Namespace on their own provide no isolation and are not a security layer.  
+- Leverage namespaces along with Network Policies for application isolation. 
   - https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/ 
-
+> **Note:** Namespace on their own provide no isolation and are not a security layer.  
+  
 ## 5.0 Governance concerns / Azure Policy 
 
 - Set of governance and compliance rules to enforce organizational standards and to assess compliance at-scale. 
