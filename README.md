@@ -205,7 +205,12 @@
 - Expose ACR through private link removing external access to the registry. Note, vnet peering will be required if AKS deployed in private cluster.  
   - https://docs.microsoft.com/en-us/azure/container-registry/container-registry-private-link 
 
-<!--## 7.0 DevOps
+<!--## 7.0 Cost
+
+- Take advantage of app reservations
+- Take advantage for dev/test environments if available
+
+## 7.0 DevOps
 
 ### 7.1 Versioning
 
