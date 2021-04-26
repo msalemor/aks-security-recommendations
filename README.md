@@ -43,10 +43,10 @@
 ### 2.3 Node Security 
 
 - OS patches are applied nightly by AKS. Rebooting the VM doesn't happen automatically 
+  - https://docs.microsoft.com/en-us/azure/aks/node-image-upgrade 
 - Linux kernel updates require a reboot 
   > **Note:** Kured daemonset is a solution for safe rebooting (cordoned / drained) 
-  > **Suggested.**  Rather than leveraging Kured, recommended approach is to use VMSS Node Image Upgrade, now supported by AKS. This must be scripted by the customer as it's not automatically enforced as of yet (this on the roadmap).  This is considered an advantageous approach when compared to Kured, as Node Image Upgrade will bring a new OS image and will apply the image to all nodes in a cordoned/drained fashion. 
-  - https://docs.microsoft.com/en-us/azure/aks/node-image-upgrade 
+  > **Suggested.**  Rather than leveraging Kured, recommended approach is to use VMSS Node Image Upgrade, now supported by AKS. This must be scripted by the customer as it's not automatically enforced as of yet (this on the roadmap).  This is considered an advantageous approach when compared to Kured, as Node Image Upgrade will bring a new OS image and will apply the image to all nodes in a cordoned/drained fashion.   
 - Security hardening the AKS agent node host OS. AKS provides a security optimized host OS by default. There is no option to select an alternate operating system. No action need to be taken, but more info here.  
   - https://docs.microsoft.com/en-us/azure/aks/security-hardened-vm-host-image 
 
