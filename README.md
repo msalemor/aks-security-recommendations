@@ -38,7 +38,7 @@
 
 > **Critical:** Subsequent security features like connecting to ACR, running pods with a specific Managed Identity, and properly externalizing secrets.
 
-> **Note:** Use a User Defined Mamaged Identity rather than System Assigned when creating the cluster so identity can be reused on cluster recreate 
+> **Note:** Use a User Defined Managed Identity rather than System Assigned one when creating the cluster so identity can be reused on cluster recreate 
   --assign-identity $IDENTITY 
 
 ### 2.3 Node Security 
